@@ -291,9 +291,9 @@ layers.BatchNormalization(),
 - **Reasoning**: The softmax activation function in the output layer converts the logits into probabilities for each class, enabling multi-class classification. The softmax activation function computes a probability distribution over multiple classes. It is defined as:
 \[ \sigma(z)_j = \frac{e^{z_j}}{\sum_{k=1}^{K} e^{z_k}} \]
 
-where:
+Where:
 - \( z = (z_1, z_2, ..., z_K) \) is the vector of logits (raw outputs) for each class.
-- \( \sigma(z)_j \) is the probability of class \( j \).
+- \( \sigma(z)_j \) represents the probability of class \( j \).
 - The denominator \( \sum_{k=1}^{K} e^{z_k} \) is the sum of exponentiated logits across all classes, ensuring that the probabilities sum to 1.
   
 ```python
