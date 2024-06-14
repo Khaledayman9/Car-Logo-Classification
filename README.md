@@ -2,13 +2,13 @@
 A CNN model that can accurately identify which car brand a logo belongs to among eight possible brands: Hyundai, Lexus, Mazda, Mercedes, Opel, Skoda, Toyota, and Volkswagen. This classification task is a subset of image recognition, a fundamental problem in computer vision.
 
 
-# Problem:
+# 1. Problem:
 The problem at hand is the classification of car brand logos using a Convolutional Neural Network (CNN). The task involves training a model to identify which car brand a logo belongs to among eight possible brands: Hyundai, Lexus, Mazda, Mercedes, Opel, Skoda, Toyota, and Volkswagen. This classification task is a subset of image recognition, a well-known problem in computer vision.
 
-# Aim:
+# 2. Aim:
 The primary aim of this task is to develop an accurate and robust model capable of classifying car brand logos from images. Achieving this goal can have practical applications in various fields, including automated quality control in manufacturing, visual marketing, and brand monitoring on social media.
 
-# Importance:
+# 3. Importance:
 1.	Automation: Automated logo classification can significantly reduce the time and effort required for manual identification and sorting of images.
    
 2.	Scalability: A reliable model can handle large datasets, making it feasible to analyze extensive collections of images, which is impractical manually.
@@ -17,7 +17,7 @@ The primary aim of this task is to develop an accurate and robust model capable 
    
 4.	Intellectual Property Protection: Detecting unauthorized use of logos can help in protecting brand identity and intellectual property rights.
 
-# Challenges:
+# 4. Challenges:
 
 1.	Variability in Logos: Logos might vary in color, size, orientation, and context in which they appear, making consistent classification challenging.
    
@@ -30,7 +30,7 @@ The primary aim of this task is to develop an accurate and robust model capable 
 
 
 
-# Methodology
+# 5. Methodology
 
 **1. Data Preparation:**
 
@@ -61,7 +61,7 @@ The primary aim of this task is to develop an accurate and robust model capable 
    - **Evaluation**: Post-training, the model was evaluated on the test set, and metrics such as accuracy, precision, recall, and F1-score were calculated.
 
 
-# Dataset:
+# 6. Dataset:
 The selection of the Kaggle dataset, "Car Brand Logos" by Volkandl, for this case study was driven by several key factors that align well with the objectives and requirements of developing a CNN model for car brand logo classification. To access dataset[^1]. Below, I outline the reasoning behind this choice based on the provided code and the dataset characteristics. 
 
 [^1]: [Car Brand Logos](https://www.kaggle.com/datasets/volkandl/car-brand-logos)
@@ -91,7 +91,7 @@ Kaggle is a well-known platform that provides easy access to datasets for machin
 Using a dataset from Kaggle provides the additional benefit of community support. Kaggle datasets often come with discussions, kernels (notebooks), and other resources that can help in understanding and working with the data more effectively.
 
 
-# Attributes and Hyperparameters:
+# 7. Attributes and Hyperparameters:
 In the context of the CNN model for car brand logo classification, the attributes chosen for the model and those to be predicted play a crucial role in determining the model's effectiveness. Here's a detailed discussion on these attributes:
 
 ### 1. Attributes Chosen for the Predictive Model
@@ -201,7 +201,7 @@ The model aims to classify each input image into one of these eight classes.
 -	Enhanced User Experience: Applications such as automated sorting and searching of images based on car brands can greatly enhance user experience in digital asset management systems.
 
 
-# Architecture:
+# 8. Architecture:
 In developing a CNN model for car brand logo classification, the chosen architecture and parameters are crucial for achieving optimal performance. The model architecture is designed to effectively extract and learn the features of car brand logos, facilitating accurate classification. Here are the key components and their rationale:
 
 ## Model Architecture:
@@ -299,7 +299,10 @@ layers.Dense(8, activation='softmax')
 ```	    
 
 So here is the final Architecture for the CNN model:
+
+
 ![image](https://github.com/Khaledayman9/Car-Logo-Classification/assets/105018459/2b0e07a1-d50c-401a-bd58-b95b6ea99d2d)
+
 
 ## Parameters:
 
@@ -330,5 +333,5 @@ history = model.fit(
 ```	 
 
 
-# Results:
+# 9. Results:
 The final model achieved a test accuracy of approximately 79.5%. However, the detailed classification report and confusion matrix indicated that the model's performance varied across different classes, with some brands being better recognized than others.
