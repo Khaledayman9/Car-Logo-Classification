@@ -289,34 +289,8 @@ layers.BatchNormalization(),
 
 ### Softmax Activation in Output Layer:
 - **Reasoning**: The softmax activation function in the output layer converts the logits into probabilities for each class, enabling multi-class classification. The softmax activation function computes a probability distribution over multiple classes. It is defined as:
-
-$$\[ \text{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}} \]
-
-Where:
-- \( z = [z_1, z_2, \ldots, z_K] \) is the input vector.
-- \( \text{softmax}(z)_i \) is the \( i \)-th element of the output vector from the softmax function.
-- \( e \) denotes Euler's number (approximately 2.71828).$$
-
-
-
-$$
-\text{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
-$$
-
-
-Where:
-
-$$
-z = [z_1, z_2, \ldots, z_K] \text{ is the input vector.}
-$$
-
-$$
-\text{softmax}(z)_i \text{ is the } i\text{-th element of the output vector from the softmax function.}
-$$
-
-$$
-e \text{ denotes Euler's number (approximately 2.71828).}
-$$
+  
+![hER](https://github.com/Khaledayman9/Car-Logo-Classification/assets/105018459/4737a623-f2d9-441c-8252-74b936acaa7f)
 
   
 ```python
