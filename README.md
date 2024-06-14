@@ -232,7 +232,7 @@ model = models.Sequential([
 
 ### Activation Function (Swish):
 
-- **Reasoning**: The swish activation function, defined as \[ f(x) = x \cdot \sigma(x) \] where \( \sigma(x) = \frac{1}{1 + e^{-x}} \) is the sigmoid function., has been shown to perform better than ReLU in deep networks due to its smooth and non-monotonic properties. This helps in achieving better convergence and performance.
+- **Reasoning**: The swish activation function, defined as 𝑓(𝑥)=𝑥⋅𝜎(𝑥), where σ is the sigmoid function, has been shown to perform better than ReLU in deep networks due to its smooth and non-monotonic properties. This helps in achieving better convergence and performance.
 
 ```python
 model = models.Sequential([
@@ -289,13 +289,19 @@ layers.BatchNormalization(),
 
 ### Softmax Activation in Output Layer:
 - **Reasoning**: The softmax activation function in the output layer converts the logits into probabilities for each class, enabling multi-class classification. The softmax activation function computes a probability distribution over multiple classes. It is defined as:
-sigma(z)_j = exp(z_j) / sum(exp(z_k))
+$$
+\text{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}, where
+$$
+$$
+- z = [z_1, z_2, \ldots, z_K] \text{ is the input vector.}
+$$
+$$
+- \text{softmax}(z)_i \text{ is the } i\text{-th element of the output vector from the softmax function.}
+$$
+$$
+- e \text{ denotes Euler's number (approximately 2.71828).}
+$$
 
-Where:
-- z = (z_1, z_2, ..., z_K) is the vector of logits (raw outputs) for each class.
-- sigma(z)_j is the probability of class j.
-= exp(z_j) represents the exponential of the logit z_j.
-= sum(exp(z_k)) is the sum of exponentiated logits across all classes, ensuring that the probabilities sum to 1.
   
 ```python
 layers.Dense(8, activation='softmax')
