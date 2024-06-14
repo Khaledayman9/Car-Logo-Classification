@@ -30,37 +30,35 @@ The primary aim of this task is to develop an accurate and robust model capable 
 
 
 
-# Methodology:
+# Methodology
 
 **1. Data Preparation:**
 
-   ●	Dataset Splitting: The dataset was split into training (80%), validation (20%), and test sets to ensure the model is evaluated on unseen data.
+   - **Dataset Splitting**: The dataset was split into training (80%), validation (20%), and test sets to ensure the model is evaluated on unseen data.
    
-   ●	Data Augmentation: Techniques such as rotation, width and height shifts, shearing, zooming, and horizontal flipping were applied to artificially increase the diversity of the training data, helping the model generalize better.
+   - **Data Augmentation**: Techniques such as rotation, width and height shifts, shearing, zooming, and horizontal flipping were applied to artificially increase the diversity of the training data, helping the model generalize better.
       
+**2. Model Architecture:**
+
+   - A Sequential CNN model was constructed with the following characteristics:
+      
+      1. **Conv2D Layers**: Multiple convolutional layers with swish activation functions and HeNormal initializers were used to extract features from the input images.
+          
+      2. **MaxPooling2D**: Pooling layers were introduced to reduce spatial dimensions and computational load.
+          
+      3. **BatchNormalization**: Applied after pooling and dense layers to stabilize and accelerate training.
+          
+      4. **Dropout**: Used to prevent overfitting by randomly dropping units during training.
+          
+      5. **Dense Layers**: Fully connected layers were used towards the end of the network for classification, with the final layer having a softmax activation function to output probabilities for each class.
   
-**2. Model Architecture:** 
+**3. Training and Evaluation:**
 
-   ●	A Sequential CNN model was constructed with the following characteristics:
+   - **Optimizer and Loss Function**: The model was compiled using the Adam optimizer and categorical crossentropy loss, suitable for multi-class classification.
       
-      1.	Conv2D Layers: Multiple convolutional layers with swish activation functions and HeNormal initializers were used to extract features from the input images.
-          
-      2.	MaxPooling2D: Pooling layers were introduced to reduce spatial dimensions and computational load.
-          
-      3.	BatchNormalization: Applied after pooling and dense layers to stabilize and accelerate training.
-          
-      4.	Dropout: Used to prevent overfitting by randomly dropping units during training.
-          
-      5.	Dense Layers: Fully connected layers were used towards the end of the network for classification, with the final layer having a softmax activation function to output probabilities for each class.
-  
-**3 Training and Evaluation:** 
-
-   ●	Optimizer and Loss Function: The model was compiled using the Adam optimizer and categorical crossentropy loss, suitable for multi-class classification.
+   - **Training**: The model was trained for 200 epochs, with training performance monitored using accuracy and loss metrics.
       
-   ●	Training: The model was trained for 200 epochs, with training performance monitored using accuracy and loss metrics.
-      
-   ●	Evaluation: Post-training, the model was evaluated on the test set, and metrics such as accuracy, precision, recall, and F1-score were calculated.
-
+   - **Evaluation**: Post-training, the model was evaluated on the test set, and metrics such as accuracy, precision, recall, and F1-score were calculated.
 
 
 # Dataset:
