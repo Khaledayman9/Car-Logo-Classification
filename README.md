@@ -201,5 +201,134 @@ The model aims to classify each input image into one of these eight classes.
 -	Enhanced User Experience: Applications such as automated sorting and searching of images based on car brands can greatly enhance user experience in digital asset management systems.
 
 
+# Architecture:
+In developing a CNN model for car brand logo classification, the chosen architecture and parameters are crucial for achieving optimal performance. The model architecture is designed to effectively extract and learn the features of car brand logos, facilitating accurate classification. Here are the key components and their rationale:
+
+## Model Architecture:
+
+
+###  Sequential Model:
+
+- **Reasoning**: A Sequential model is used to build the network layer-by-layer in a straightforward manner, which is suitable for image classification tasks.
+```python
+model = models.Sequential([
+...
+])
+```
+
+### Convolutional Layers (Conv2D):
+
+- **Reasoning**: Convolutional layers are the backbone of CNNs. They are used to automatically and adaptively learn spatial hierarchies of features from input images. The layers use filters to convolve with the input image, capturing essential patterns such as edges, textures, and shapes.
+
+```python
+model = models.Sequential([
+   layers.Conv2D(32, (3, 3), activation='swish', padding='same', input_shape=(224, 224, 3), kernel_initializer=HeNormal()),
+   layers.Conv2D(32, (3, 3), activation='swish', padding='same', kernel_initializer=HeNormal()),
+   layers.MaxPooling2D((2, 2)),    layers.BatchNormalization(),
+   layers.Dropout(0.3),    ...
+])
+```
+
+
+### Activation Function (Swish):
+
+- **Reasoning**: The swish activation function, defined as \[ f(x) = x \cdot \sigma(x) \] where \( \sigma(x) = \frac{1}{1 + e^{-x}} \) is the sigmoid function., has been shown to perform better than ReLU in deep networks due to its smooth and non-monotonic properties. This helps in achieving better convergence and performance.
+
+```python
+model = models.Sequential([
+   layers.Conv2D(32, (3, 3), activation='swish', padding='same', input_shape=(224, 224, 3), kernel_initializer=HeNormal()),
+   layers.Conv2D(32, (3, 3), activation='swish', padding='same', kernel_initializer=HeNormal()),
+])
+```
+
+### Kernel Initializer (HeNormal):
+
+- **Reasoning**: The HeNormal initializer is used to set the initial random weights of the network. It helps in maintaining the variance of the weights through layers, which is crucial for effective training of deep networks.
+
+```python
+model = models.Sequential([
+   layers.Conv2D(32, (3, 3), activation='swish', padding='same', input_shape=(224, 224, 3), kernel_initializer=HeNormal()),
+   layers.Conv2D(32, (3, 3), activation='swish', padding='same', kernel_initializer=HeNormal()),
+])
+```
+
+### Pooling Layers (MaxPooling2D):
+- **Reasoning**: Pooling layers reduce the spatial dimensions of the feature maps, lowering computational complexity and focusing on the most prominent features. MaxPooling is particularly effective in preserving the most critical information.
+
+```python
+layers.MaxPooling2D((2, 2)),
+```
+
+
+### Batch Normalization:
+- **Reasoning**: Batch normalization layers are added after convolutional and fully connected layers to normalize the activations. This helps in stabilizing and accelerating the training process by reducing internal covariate shifts.
+
+```python
+layers.BatchNormalization(),
+```
+
+### Dropout:
+- **Reasoning**: Dropout layers are used as a regularization technique to prevent overfitting. By randomly setting a fraction of input units to zero during training, the network becomes more robust and less likely to overfit the training data.
+
+```python
+layers.Dropout(0.3),
+```
+
+### Dense Layers:
+- **Reasoning**: Dense layers towards the end of the network serve to integrate the features learned by the convolutional layers and make the final classification. The inclusion of regularizers and the swish activation function aids in preventing overfitting and improving performance.
+
+```python
+layers.Flatten(),
+layers.Dense(512, activation='swish', kernel_regularizer=regularizers.l2(0.001), kernel_initializer=HeNormal()),
+layers.Dropout(0.5),
+layers.BatchNormalization(),
+layers.Dense(512, activation='swish', kernel_regularizer=regularizers.l2(0.001), kernel_initializer=HeNormal()),
+layers.Dropout(0.5),
+layers.BatchNormalization(),
+```
+
+### Softmax Activation in Output Layer:
+- **Reasoning**: The softmax activation function in the output layer converts the logits into probabilities for each class, enabling multi-class classification. Softmax activation function for \( K \) classes:
+\[ \text{softmax}(z)_j = \frac{e^{z_j}}{\sum_{k=1}^{K} e^{z_k}} \], where:
+- \( z = (z_1, z_2, ..., z_K) \) is the vector of logits (raw outputs) for each class.
+- \( \text{softmax}(z)_j \) is the probability of class \( j \).
+- The denominator is the sum of exponentiated logits across all classes, ensuring that the probabilities sum to 1.
+  
+```python
+layers.Dense(8, activation='softmax')
+```	    
+
+So here is the final Architecture for the CNN model:
+![image](https://github.com/Khaledayman9/Car-Logo-Classification/assets/105018459/2b0e07a1-d50c-401a-bd58-b95b6ea99d2d)
+
+## Parameters:
+
+### Learning Rate (Adam Optimizer):
+- **Reasoning**: The Adam optimizer with a learning rate of 0.001 is chosen for its adaptive learning rate capabilities and efficient handling of sparse gradients. This optimizer combines the advantages of RMSprop and AdaGrad, making it suitable for training deep neural networks.
+
+```python
+model.compile(optimizer= Adam(learning_rate=0.001),
+loss='categorical_crossentropy',
+metrics=['accuracy'])
+```
+
+### Loss Function (Categorical Crossentropy):
+- **Reasoning**: Categorical crossentropy is used as the loss function because it is appropriate for multi-class classification tasks. It measures the dissimilarity between the true labels and the predicted probabilities, providing a clear objective for the optimizer to minimize.
+
+
+### ●	Batch Size and Epochs:
+- **Reasoning**: A batch size of 64 is selected to provide a good balance between training speed and the stability of the gradient updates. Training for 200 epochs allows the model to learn effectively from the data, with enough iterations to converge to an optimal solution.
+  
+```python
+history = model.fit(
+    train_generator,
+    steps_per_epoch=train_generator.samples // train_generator.batch_size,
+    validation_data=val_generator,
+    validation_steps=val_generator.samples // val_generator.batch_size,
+    epochs=200
+)
+```	 
+
+
 # Results:
 The final model achieved a test accuracy of approximately 79.5%. However, the detailed classification report and confusion matrix indicated that the model's performance varied across different classes, with some brands being better recognized than others.
