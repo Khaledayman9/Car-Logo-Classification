@@ -91,7 +91,115 @@ Kaggle is a well-known platform that provides easy access to datasets for machin
 Using a dataset from Kaggle provides the additional benefit of community support. Kaggle datasets often come with discussions, kernels (notebooks), and other resources that can help in understanding and working with the data more effectively.
 
 
+# Attributes and Hyperparameters:
+In the context of the CNN model for car brand logo classification, the attributes chosen for the model and those to be predicted play a crucial role in determining the model's effectiveness. Here's a detailed discussion on these attributes:
+
+### 1. Attributes Chosen for the Predictive Model
+
+The primary attributes chosen for the predictive model are the image features extracted through the convolutional layers of the CNN. Here's why each chosen attribute and preprocessing step is important:
+
+#### Image Rescaling (rescale=1./255):
+
+- **Importance**: Normalizing pixel values to the range [0, 1] is essential for improving the model's convergence during training. This scaling helps in stabilizing the gradient descent optimization process.
+
+```python
+train_datagen = ImageDataGenerator(
+    rescale=1./255,
+    rotation_range=20,
+    width_shift_range=0.1,
+    height_shift_range=0.1,
+    shear_range=0.1,
+    zoom_range=0.1,
+    horizontal_flip=True,
+    fill_mode='nearest'
+)
+```
+#### 	Data Augmentation:
+
+- **Importance**: Techniques such as rotation, width and height shifts, shear, zoom, and horizontal flipping increase the diversity of the training dataset. This helps the model generalize better by learning to recognize logos in various orientations and transformations, simulating real-world scenarios where logos might not always appear in a standard format. For example, in the code snippet, it can be seen that the rotation_range is 20, width_shift_range = 0.1 and so on.
+  
+#### 	Convolutional Layers (Conv2D):
+
+- **Importance**: These layers are responsible for feature extraction. They detect local patterns such as edges, textures, and shapes that are essential for distinguishing different car logos. The swish activation function and HeNormal initializer which is a method used to initialize the weights of neural networks are chosen to improve learning efficiency and model performance.The kernel size was 3x3 for all convolutional layers.Same padding was used also in all convolutional layers.
+
+```python
+model = models.Sequential([
+   layers.Conv2D(32, (3, 3), activation='swish', padding='same', input_shape=(224, 224, 3), kernel_initializer=HeNormal()),
+   layers.Conv2D(32, (3, 3), activation='swish', padding='same', kernel_initializer=HeNormal()),
+   layers.MaxPooling2D((2, 2)),    layers.BatchNormalization(),
+   layers.Dropout(0.3),    ...
+])
+```
+
+#### 	Pooling Layers (MaxPooling2D):
+- **Importance**: These layers reduce the spatial dimensions of the feature maps, thereby reducing the computational complexity and helping in retaining the most important features. They also help in achieving spatial invariance, which is crucial for recognizing logos irrespective of their position in the image. The kernel size for the pooling layers was 2x2 and Max pooling was used in all Pooling layers in the CNN.
+
+```python
+layers.MaxPooling2D((2, 2)),
+```
 
 
-#. Results:
+#### Batch Normalization:
+- **Importance**: This helps in stabilizing and speeding up the training process by normalizing the input to each layer. It mitigates issues like internal covariate shift and makes the model more robust.
+
+```python
+layers.BatchNormalization(),
+```
+
+#### Dropout:
+- **Importance**: Dropout is a regularization technique that helps prevent overfitting by randomly setting a fraction of input units to zero during training. This encourages the network to learn redundant representations and enhances generalization. We used in the implementation multiple Dropout layers with different dropout factors (ex: 0.3, 0.4,and 0.5) to address overfitting.
+
+```python
+layers.Dropout(0.3),
+```
+
+#### Dense Layers:
+- **Importance**: Fully connected layers towards the end of the network consolidate the features extracted by the convolutional layers to make final predictions. The swish activation function in these layers ensures smooth and non-linear transformations, aiding in better learning.
+
+```python
+layers.Flatten(),
+layers.Dense(512, activation='swish', kernel_regularizer=regularizers.l2(0.001), kernel_initializer=HeNormal()),
+layers.Dropout(0.5),
+layers.BatchNormalization(),
+layers.Dense(512, activation='swish', kernel_regularizer=regularizers.l2(0.001), kernel_initializer=HeNormal()),
+layers.Dropout(0.5),
+layers.BatchNormalization(),
+```
+
+#### Softmax Activation in Output Layer:
+- **Importance**: The softmax function is used in the output layer to convert the logits into probabilities for each class (car brand). This helps in interpreting the network's predictions as probabilities, facilitating classification.
+
+```python
+layers.Dense(8, activation='softmax')
+```	    
+
+#### Adam Optimizer:
+- **Importance**: The Adam (Adaptive Moment Estimation) optimizer is crucial for efficiently training deep learning models. It combines the advantages of two other popular optimizers: AdaGrad and RMSProp. Adam is particularly useful for models that involve large datasets and high-dimensional parameter spaces, such as those used for image classification tasks like recognizing car brand logos. A learning rate of 0.001 was chosen and the loss function is “Categorical Cross Entropy” for multiclass classification and the metrics is accuracy. The model was trained for 200 epochs. The batch size for was 64.
+
+```python
+model.compile(optimizer= Adam(learning_rate=0.001),
+	              loss='categorical_crossentropy',
+	              metrics=['accuracy'])
+```	    
+
+
+### 2. Attributes to be Predict
+The attributes to be predicted are the car brand labels corresponding to the logos. In this case, the labels are:
+1.	Hyundai
+2.	Lexus
+3.	Mazda
+4.	Mercedes
+5.	Opel
+6.	Skoda
+7.	Toyota
+8.	Volkswagen
+The model aims to classify each input image into one of these eight classes.
+#### Importance of the Predicted Attributes:
+-	Brand Recognition: Accurate prediction of car brand logos has direct implications for brand recognition and monitoring. It helps in ensuring that the brand identity is correctly identified and tracked across various media.
+-	Market Analysis: By identifying the presence and frequency of different car brands in images, companies can gain insights into market trends and consumer preferences.
+-	Intellectual Property Protection: Identifying and classifying logos correctly can aid in detecting unauthorized use of trademarks and logos, helping in protecting intellectual property.
+-	Enhanced User Experience: Applications such as automated sorting and searching of images based on car brands can greatly enhance user experience in digital asset management systems.
+
+
+# Results:
 The final model achieved a test accuracy of approximately 79.5%. However, the detailed classification report and confusion matrix indicated that the model's performance varied across different classes, with some brands being better recognized than others.
