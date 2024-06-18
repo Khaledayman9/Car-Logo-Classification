@@ -411,7 +411,5 @@ print(f"Test Accuracy: {accuracy * 100:.2f}%")
 
 # Technologies:
 - Python.
-  
 - TensorFlow.
-  
 - Kaggle Notebook.
