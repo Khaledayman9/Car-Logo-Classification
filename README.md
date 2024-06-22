@@ -410,6 +410,6 @@ print(f"Test Accuracy: {accuracy * 100:.2f}%")
 **Precision-Recall Trade-offs:** The precision-recall analysis emphasized the importance of balancing these metrics, especially for applications where false positives and false negatives have different consequences.
 
 # Technologies:
-- Python.
-- TensorFlow.
-- Kaggle Notebook.
+- Python
+- TensorFlow
+- Kaggle Notebook
