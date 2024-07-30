@@ -193,6 +193,7 @@ The attributes to be predicted are the car brand labels corresponding to the log
 6.	Skoda
 7.	Toyota
 8.	Volkswagen
+   
 The model aims to classify each input image into one of these eight classes.
 #### Importance of the Predicted Attributes:
 -	Brand Recognition: Accurate prediction of car brand logos has direct implications for brand recognition and monitoring. It helps in ensuring that the brand identity is correctly identified and tracked across various media.
