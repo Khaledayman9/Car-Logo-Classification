@@ -1,7 +1,6 @@
 # Car-Logo-Classification
 A CNN model that can accurately identify which car brand a logo belongs to among eight possible brands: Hyundai, Lexus, Mazda, Mercedes, Opel, Skoda, Toyota, and Volkswagen. This classification task is a subset of image recognition, a fundamental problem in computer vision.
 
-
 # 1. Problem:
 The problem at hand is the classification of car brand logos using a Convolutional Neural Network (CNN). The task involves training a model to identify which car brand a logo belongs to among eight possible brands: Hyundai, Lexus, Mazda, Mercedes, Opel, Skoda, Toyota, and Volkswagen. This classification task is a subset of image recognition, a well-known problem in computer vision.
 
